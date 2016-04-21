@@ -6,6 +6,8 @@ import java.util.List;
  * Created by a247a01 on 21/04/16.
  */
 public class Customer {
+
+    //TODO: implement getters, setters, parcelables, constructors
     private long mLocalId;
 
     private String mFirstName;
