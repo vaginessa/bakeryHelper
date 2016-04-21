@@ -4,6 +4,10 @@ android {
     compileSdkVersion 'android-N'
     buildToolsVersion "23.0.3"
 
+
+    dataBinding{
+        enabled = true
+    }
     defaultConfig {
         applicationId "uk.co.o_247a.android.bakeryhelper"
         minSdkVersion 8
