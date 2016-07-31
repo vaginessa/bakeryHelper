@@ -1,4 +1,4 @@
-package uk.co.o_247a.android.bakeryhelper;
+package uk.co.o_247a.android.bakery_helper;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

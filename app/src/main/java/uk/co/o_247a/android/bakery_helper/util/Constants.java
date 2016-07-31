@@ -1,4 +1,4 @@
-package uk.co.o_247a.android.bakeryhelper.Util;
+package uk.co.o_247a.android.bakery_helper.util;
 
 /**
  * Created by wert2 on 22/04/2016.
