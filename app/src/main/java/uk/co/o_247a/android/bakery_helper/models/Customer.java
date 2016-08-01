@@ -13,5 +13,10 @@ public class Customer extends SugarRecord {
     public String custCode;
     public Address deliveryAddress;
     public Address invoiceAddress;
-    public List<Discount> individualDiscounts;
+
+    public DiscountGroup discountGroup;
+
+    public List<Discount> individualDiscounts() {
+        return Discount.find(Discount.class, "customer = ?", getId().toString());
+    }
 }

@@ -20,4 +20,7 @@ public class Discount extends SugarRecord {
     public int discountType;
 
     public List<Product> productList;
+
+    public Customer customer;
+    public DiscountGroup discountGroup;
 }

@@ -9,9 +9,13 @@ import java.util.List;
  */
 public class DiscountGroup extends SugarRecord {
     public String name;
-
-    public List<Customer> customerList;
-    public List<Discount> discountList;
-
     public boolean active;
+
+    public List<Customer> customerList() {
+        return Customer.find(Customer.class, "discount_group = ?", getId().toString());
+    }
+
+    public List<Discount> discountList() {
+        return Discount.find(Discount.class, "discount_group = ?", getId().toString());
+    }
 }

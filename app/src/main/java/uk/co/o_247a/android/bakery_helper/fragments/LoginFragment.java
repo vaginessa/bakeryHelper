@@ -16,6 +16,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import uk.co.o_247a.android.bakery_helper.Interfaces.LoginCallbacks;
+import uk.co.o_247a.android.bakery_helper.Interfaces.LoginFragmentCallbacks;
 import uk.co.o_247a.android.bakery_helper.R;
 import uk.co.o_247a.android.bakery_helper.business_logic.Login;
 import uk.co.o_247a.android.bakery_helper.databinding.FragmentLoginBinding;
@@ -24,12 +26,12 @@ import uk.co.o_247a.android.bakery_helper.models.LoginModel;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LoginFragment.LoginFragmentCallbacks} interface
+ * {@link LoginCallbacks} interface
  * to handle interaction events.
  * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment implements Login.LoginCallbacks {
+public class LoginFragment extends Fragment implements LoginCallbacks {
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -176,11 +178,5 @@ public class LoginFragment extends Fragment implements Login.LoginCallbacks {
     }
 
 
-    public interface LoginFragmentCallbacks {
-        Context getApplicationContext();
 
-        void success();
-
-        void createUser();
-    }
 }

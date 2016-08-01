@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Order Management">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_order_new"
+                    android:title="New Order" />
+                <item
+                    android:id="@+id/nav_order_active"
+                    android:title="Active Orders" />
+                <item
+                    android:id="@+id/nav_order_list"
+                    android:title="All Orders" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Customer Management">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_customer_new"
+                    android:title="New Customer" />
+                <item
+                    android:id="@+id/nav_customer_list"
+                    android:title="Customer List" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Discount Management">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_discount_product"
+                    android:title="New Product Discount" />
+                <item
+                    android:id="@+id/nav_discount_customer"
+                    android:title="New Customer Discount" />
+                <item
+                    android:id="@+id/nav_discount_list"
+                    android:title="Discount List" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Product Management">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_product_new"
+                    android:title="New Product" />
+                <item
+                    android:id="@+id/nav_product_list"
+                    android:title="Product List" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="User Management">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_user_new"
+                    android:title="New User" />
+                <item
+                    android:id="@+id/nav_user_list"
+                    android:title="User List" />
+            </group>
+        </menu>
+    </item>
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_account_sync"
+            android:title="Sync" />
+        <item
+            android:id="@+id/nav_account_log_out"
+            android:title="Log Out" />
+        <item
+            android:id="@+id/nav_account_settings"
+            android:title="Settings" />
+    </group>
+
+
+</menu>

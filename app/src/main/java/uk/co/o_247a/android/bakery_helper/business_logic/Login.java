@@ -3,16 +3,17 @@ package uk.co.o_247a.android.bakery_helper.business_logic;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
+import com.orm.query.Condition;
+import com.orm.query.Select;
+
+import uk.co.o_247a.android.bakery_helper.Interfaces.LoginCallbacks;
 import uk.co.o_247a.android.bakery_helper.models.LoginModel;
+import uk.co.o_247a.android.bakery_helper.models.User;
 
 /**
  * Created by a247a01 on 21/04/16.
  */
 public class Login {
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-
     private static UserLoginTask mAuthTask = null;
     private static LoginCallbacks mCallback = null;
 
@@ -29,7 +30,7 @@ public class Login {
         }
 
         if (isUserValid(aLogin.Username.get()) && isPasswordValid(aLogin.Password.get())) {
-            mCallback.success();
+            new UserLoginTask(aLogin.Username.get(), aLogin.Password.get()).execute();
         } else {
             mCallback.fail();
         }
@@ -37,61 +38,49 @@ public class Login {
 
 
     private static boolean isUserValid(String aUserName) {
-        //TODO: Replace this with your own logic
-        return !TextUtils.isEmpty(aUserName) && aUserName.contains("@");
+        return !TextUtils.isEmpty(aUserName);// && aUserName.contains("@");
     }
 
     private static boolean isPasswordValid(String aPassword) {
-        //TODO: Replace this with your own logic
-        return !TextUtils.isEmpty(aPassword) && aPassword.length() > 4;
+        return !TextUtils.isEmpty(aPassword) && aPassword.length() > 2;
     }
 
-    public interface LoginCallbacks {
-        void success();
-
-        void accountLocked();
-
-        void fail();
-
-        void loginStarted();
-
-        void loginStopped();
-
-        void loginAlreadyRunning();
-    }
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-        private final LoginModel mLogin;
+    public static class UserLoginTask extends AsyncTask<Void, Void, User> {
+        private final String mUsername;
+        private final String mPassword;
 
-        UserLoginTask(LoginModel aLogin) {
-            mLogin = aLogin;
+
+        UserLoginTask(String aUsername, String aPassword) {
+            mUsername = aUsername;
+            mPassword = aPassword;
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected User doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                return false;
+                return null;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mLogin.Username.get())) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mLogin.Password.get());
-                }
-            }
+            /**
+             * Search for users with the same username and password
+             * if there is one then login is successful
+             * (Local lookup for when no network access)
+             */
 
-            // TODO: register the new account here.
-            return true;
+            return Select.from(User.class).
+                    where(Condition.prop("user_name").eq(mUsername)).
+                    and(Condition.prop("password").eq(mPassword)).
+                    limit("1").first();
         }
 
         @Override
@@ -100,13 +89,15 @@ public class Login {
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final User aUser) {
             mAuthTask = null;
             mCallback.loginStopped();
-            if (success) {
+            if (aUser == null) {
+                mCallback.fail();
+            } else if (aUser.active) {
                 mCallback.success();
             } else {
-                mCallback.fail();
+                mCallback.accountLocked();
             }
         }
 
@@ -116,4 +107,6 @@ public class Login {
             mCallback.loginStopped();
         }
     }
+
+
 }
